@@ -14,7 +14,7 @@ Leonardo de Araujo Medeiros - 17/0038891
 5. Visualize em um editor de texto de sua preferência o arquivo [rank.txt](rank.txt).
 
 ## Ideia proposta
-Dado o dataset contendo a lista de todos os jogos com mais de 100.000 copias vendidas até 26-06-2016 nas principais plataformas conhecidas, nos propomos a ordena-las de forma a possibilitar uma busca mais eficiente dentro do dataset, alem disto, durante o processo foi gerado um compilado dos melhores jogos de cada plataforma, com custo total  de `n + n log (n)`.
+Dado o dataset contendo a lista de todos os jogos com mais de 100.000 copias vendidas até 26-06-2016 nas principais plataformas conhecidas, nos propomos a ordena-las de forma a possibilitar uma busca mais eficiente dentro do dataset, alem disto, durante o processo foi gerado um compilado dos melhores jogos de cada plataforma, com custo total  de `n + n log (n)`. Para tal, foi usado o algoritmo de Heap Sort, pois, como um dos objetivos era preparar os conjunto de dados para uma serie de requisições, e para tanto, a melhor forma de organizar os dados seria separalos por plataforma, então por pontuação e usar a data de lançamento como forma de desempate, o que tornanira qualquer tipo de implementação do Radix Sort menos eficiente.
 
 ## Resultado
 Como resultado final, obtemos uma estrutura na memória que possibilitava buscas mais eficientes, visto que estava ordenada, além disto, foram geradors os dados salvos em [rank.txt](rank.txt) que representam os 3 melhores jogos de cada plataforma, ou todos aqueles que tenham obtido nota 10, caso sejam mais que 3.

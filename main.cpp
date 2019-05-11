@@ -37,7 +37,7 @@ public:
         cout << platform << endl;
         cout << score << endl;
         cout << genre[0];
-        for(int i = 1; i < genre.size(); ++i){
+        for(unsigned int i = 1; i < genre.size(); ++i){
             cout << ' ' << genre[i];
         }
         cout << endl;
@@ -61,7 +61,7 @@ public:
             cout << score << endl;
         else if (arg == "genre"){
             cout << genre[0];
-            for(int i = 1; i < genre.size(); ++i){
+            for(unsigned int i = 1; i < genre.size(); ++i){
                 cout << ' ' << genre[i];
             }
             cout << endl;
@@ -204,7 +204,6 @@ int main(){
         in >> score;
         in.get(); // ignoring ','
 
-        auxI;
         auxI = in.peek();
         if(auxI == '\"'){ // more than 1 genre
             in.get(); // ignoring '"'
@@ -229,7 +228,7 @@ int main(){
 
         char auxC;
         in.get(auxC);
-        if(auxC = 'Y'){
+        if(auxC == 'Y'){
             editorsChoice = true;
         }
         else{
@@ -254,7 +253,7 @@ int main(){
     int rankPos = 0; // count 3 best elements
     string tempPlatform;
     cout << "TOP 3 Best Games of each Platform" << endl;
-    for(int i=0; i<games.size(); i++){
+    for(unsigned int i=0; i<games.size(); i++){
     	if(!rankPos){
     		cout << "Platform: " << games[i].platform << endl;
     		tempPlatform=games[i].platform;

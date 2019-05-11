@@ -93,9 +93,66 @@ public:
     short int releaseDay;
 
     bool operator<(const SoldGame & b)const{
-        return (score < b.score);
+    	if(platform == b.platform){
+    		if(score == b.score){
+    			return (365*(int)releaseYear+30*(int)releaseMonth+(int)releaseDay 
+    				   < 
+    				   365*(int)b.releaseYear+30*(int)b.releaseMonth+(int)b.releaseDay);
+    		}
+	        return (score > b.score);
+	    }
+	    return (platform < b.platform);
     }
+    
+    bool operator>(const SoldGame & b)const{
+    	if(platform == b.platform){
+    		if(score == b.score){
+    			return (365*(int)releaseYear+30*(int)releaseMonth+(int)releaseDay 
+    				   > 
+    				   365*(int)b.releaseYear+30*(int)b.releaseMonth+(int)b.releaseDay);
+    		}
+	        return (score < b.score);
+	    }
+	    return (platform > b.platform);
+    }
+    
 };
+
+void shiftDown(vector<SoldGame> & games, int root, int bottom){
+	int maxChild;
+	bool done;
+	
+	done = false;
+	while((root*2 <= bottom) && (!done)){
+		if(root*2 == bottom)
+			maxChild = root * 2;
+		else if(games[root*2] > games[root*2+1])
+			maxChild = root * 2;
+		else 
+			maxChild = root * 2 + 1;
+			
+		if(games[root] < games[maxChild]){
+			swap(games[root], games[maxChild]);
+			root = maxChild;
+		}
+		else{
+			done = true;
+		}
+		
+	}
+}
+
+void heapSort(vector<SoldGame> & games){
+	int i;
+	for(i = (games.size()/2)-1; i >= 0; i--){
+		shiftDown(games, i, games.size());
+	}	
+	
+	for(i = games.size()-1; i>=1; i--){
+		swap(games[0], games[i]);
+		shiftDown(games, 0, i-1);
+	} 
+}
 
 int main(){
     ifstream in;
@@ -191,5 +248,37 @@ int main(){
                         releaseMonth, releaseDay);
         games.push_back(game);
     }
+    
+    heapSort(games);
+    
+    int rankPos = 0; // count 3 best elements
+    string tempPlatform;
+    cout << "TOP 3 Best Games of each Platform" << endl;
+    for(int i=0; i<games.size(); i++){
+    	if(!rankPos){
+    		cout << "Platform: " << games[i].platform << endl;
+    		tempPlatform=games[i].platform;
+    	}
+    	else{
+    		if(games[i].platform != tempPlatform){
+    			rankPos=0;
+    			cout << "Platform: " << games[i].platform << endl;
+    			tempPlatform=games[i].platform;
+    		}
+		}
+		    
+    	if(rankPos<3 and games[i].platform == tempPlatform){
+    		cout << rankPos+1 << " > " << games[i].title << " (with: " << games[i].score << " score points).";
+    		cout << endl;
+    		rankPos++;
+    	}else{
+    		if(games[i].score==10){
+    			cout << rankPos+1 << " > " << games[i].title << " (with: " << games[i].score << " score points).";
+    			cout << endl;
+    			rankPos++;
+    		}
+    	}
+    }
+    
     return 0;
 }

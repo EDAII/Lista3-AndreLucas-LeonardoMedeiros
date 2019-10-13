@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -W -Wall -o prog -std=c++14
+CFLAGS := -W -Wall -o prog -std=c++14 -static
 
 all:
 	$(CC) $(CFLAGS) main.cpp
